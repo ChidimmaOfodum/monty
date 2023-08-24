@@ -8,18 +8,12 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new_node = malloc(sizeof(stack_t));
+	stack_t *new_node;
 	int n, status = 0;
 
 	if (stream.data == NULL)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		status = 1;
-	}
-
-	else if (!new_node)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
 		status = 1;
 	}
 
@@ -30,10 +24,20 @@ void push(stack_t **stack, unsigned int line_number)
 		status = 1;
 	}
 
+	new_node = malloc(sizeof(stack_t));
+	if (!new_node)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		status = 1;
+	}
+
 	if (status == 1)
 	{
 		fclose(stream.o);
 		freeStack(*stack);
+		if (new_node)
+			free(new_node);
+
 		exit(EXIT_FAILURE);
 	}
 
