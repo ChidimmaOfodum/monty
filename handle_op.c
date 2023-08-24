@@ -17,7 +17,10 @@ void execute_op(char *op_name, stack_t **stack, unsigned int line_number)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
-		{NULL, NULL},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
+		{NULL, NULL}
 	};
 
 	while (operation[i].opcode)

@@ -1,6 +1,8 @@
 #ifndef MONTY_H
 #define MONTY_H
+
 #define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -42,5 +44,9 @@ extern char *data;
 void pall(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void add(stack_t **stack, unsigned int line_number);
 void execute_op(char *op_name, stack_t **stack, unsigned int line_number);
+
 #endif /** MONTY_H **/
