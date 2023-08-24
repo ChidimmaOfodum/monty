@@ -14,6 +14,13 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *new_node = malloc(sizeof(stack_t));
 	int n;
 
+	if (data == NULL)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+
 	n = atoi(data);
 	if (strcmp(data, "0") != 0 && n == 0)
 	{
@@ -48,7 +55,7 @@ void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = *stack;
 	(void) line_number;
-	
+
 	while (tmp)
 	{
 		printf("%d\n", tmp->n);
@@ -66,11 +73,11 @@ void pall(stack_t **stack, unsigned int line_number)
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
-        if (*stack == NULL)
-        {
-                fprintf(stderr, "L%d: can't pint, stack empty", line_number);
-                exit(EXIT_FAILURE);
-        }
-        printf("%d\n", (*stack)->n);
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty", line_number);
+		exit(EXIT_FAILURE);
+	}
+	printf("%d\n", (*stack)->n);
 
 }
