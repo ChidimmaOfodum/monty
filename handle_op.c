@@ -38,5 +38,4 @@ void execute_op(char *op_name, stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, op_name);
 		exit(EXIT_FAILURE);
 	}
-
 }
