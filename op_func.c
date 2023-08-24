@@ -37,3 +37,23 @@ void push(stack_t **stack, unsigned int line_number)
 
 }
 
+/**
+ * pall - pushes an element to the stack
+ * @stack: topmost stack element
+ * @line_number: file line number
+ * Return: void
+ */
+
+void pall(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp = *stack;
+	(void) line_number;
+	
+	while (tmp)
+	{
+		printf("%d\n", tmp->n);
+		fflush(stdout);
+		tmp = tmp->next;
+	}
+
+}
