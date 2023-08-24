@@ -9,24 +9,31 @@
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = malloc(sizeof(stack_t));
-	int n;
+	int n, status = 0;
 
-	if (data == NULL)
+	if (stream.data == NULL)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
+		status = 1;
 	}
 
-	if (!new_node)
+	else if (!new_node)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		status = 1;
 	}
 
-	n = atoi(data);
-	if (strcmp(data, "0") != 0 && n == 0)
+	n = atoi(stream.data);
+	if (strcmp(stream.data, "0") != 0 && n == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		status = 1;
+	}
+
+	if (status == 1)
+	{
+		fclose(stream.o);
+		freeStack(*stack);
 		exit(EXIT_FAILURE);
 	}
 
@@ -35,15 +42,12 @@ void push(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL)
 		new_node->next = NULL;
-
 	else
 	{
 		new_node->next = *stack;
 		(*stack)->prev = new_node;
 	}
-
 	*stack = new_node;
-
 }
 
 /**
@@ -52,7 +56,6 @@ void push(stack_t **stack, unsigned int line_number)
  * @line_number: file line number
  * Return: void
  */
-
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = *stack;
@@ -64,7 +67,6 @@ void pall(stack_t **stack, unsigned int line_number)
 		fflush(stdout);
 		tmp = tmp->next;
 	}
-
 }
 
 /**
@@ -78,6 +80,8 @@ void pint(stack_t **stack, unsigned int line_number)
 	if (*stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty", line_number);
+		fclose(stream.o);
+		freeStack(*stack);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
@@ -93,10 +97,14 @@ void pint(stack_t **stack, unsigned int line_number)
 void pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top = *stack;
+	int n;
 
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		n = line_number;
+		fprintf(stderr, "L%d: can't pop an empty stack\n", n);
+		fclose(stream.o);
+		freeStack(*stack);
 		exit(EXIT_FAILURE);
 	}
 
@@ -118,6 +126,8 @@ void swap(stack_t **stack, unsigned int line_number)
 	if ((*stack)->next == NULL || !*stack) /* Not up to two element */
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		fclose(stream.o);
+		freeStack(*stack);
 		exit(EXIT_FAILURE);
 	}
 
@@ -128,28 +138,4 @@ void swap(stack_t **stack, unsigned int line_number)
 	tmp = top->n;
 	top->n = sec_top->n;
 	sec_top->n = tmp;
-}
-
-/**
- * add - adds the data of the top two stack element
- * @stack: topmost stack element
- * @line_number: line number of the opcode(instruction)
- * Return: nothing
- */
-void add(stack_t **stack, unsigned int line_number)
-{
-	stack_t *top = *stack;
-	stack_t *sec_top;
-
-	if ((*stack)->next == NULL || !*stack)
-	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-
-	sec_top = top->next;
-	/* Let the second-top data be the top's data added to its own data */
-	sec_top->n = sec_top->n + top->n;
-	*stack = sec_top;
-	free(top);
 }

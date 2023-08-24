@@ -2,6 +2,7 @@
 #define MONTY_H
 
 #define _GNU_SOURCE
+#define SIZE 100
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,13 +40,32 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * struct glob - stream and its data
+ * @data: data gotten from stream
+ * @o: stream
+ *
+ * Descripption: stream and its data gotten from the stream
+ */
+typedef struct glob
+{
+	char *data;
+	FILE *o;
+} glob;
 
-extern char *data;
+extern glob stream;
+
 void pall(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
+void freeStack(stack_t *stack);
+void nop(stack_t **stack, unsigned int line_number);
 void execute_op(char *op_name, stack_t **stack, unsigned int line_number);
+void error_handling(stack_t *stack, char *op_name, char *op_data,
+		unsigned int line_number, FILE *o);
+void error_handling2(stack_t *stack, char *op_name,
+		unsigned int line_number, FILE *o);
 #endif /** MONTY_H **/

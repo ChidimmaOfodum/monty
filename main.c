@@ -1,6 +1,7 @@
 #include "monty.h"
 
-char *data;
+void do_nothing(void);
+glob stream;
 
 /**
  * main - Entry point of program
@@ -8,15 +9,12 @@ char *data;
  * @av: argument vector
  * Return: success 0
  */
-
 int main(int ac, char **av)
 {
-	size_t n = 0;
 	FILE *o = NULL;
-	char *op_name, *op_data, *lineptr = NULL, *delim = " \n\t\r";
+	char *op_name, *op_data, lineptr[SIZE], *delim = " \n\t\r";
 	int line_number = 0;
 	stack_t *stack = NULL;
-
 
 	if (ac != 2)
 	{
@@ -30,8 +28,9 @@ int main(int ac, char **av)
 		fprintf(stderr, "Error: Can't open file <%s>\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
+	stream.o = o;
 
-	while (getline(&lineptr, &n, o) != -1)
+	while (fgets(lineptr, SIZE, o) != NULL)
 	{
 		line_number++;
 
@@ -40,12 +39,13 @@ int main(int ac, char **av)
 
 		if (op_name)
 		{
-			data = op_data;
+			stream.data = op_data;
 			execute_op(op_name, &stack, line_number);
-
 		}
 	}
 
+	fclose(o);
+	freeStack(stack);
+
 	return (0);
 }
-

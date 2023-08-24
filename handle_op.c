@@ -20,6 +20,7 @@ void execute_op(char *op_name, stack_t **stack, unsigned int line_number)
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
+		{"nop", nop},
 		{NULL, NULL}
 	};
 
@@ -36,6 +37,8 @@ void execute_op(char *op_name, stack_t **stack, unsigned int line_number)
 	if (operation[i].opcode == NULL)
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, op_name);
+		fclose(stream.o);
+		freeStack(*stack);
 		exit(EXIT_FAILURE);
 	}
 }
