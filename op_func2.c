@@ -10,9 +10,13 @@ void add(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top = *stack;
 	stack_t *sec_top;
-	int n;
+	int n, status;
 
-	if ((*stack)->next == NULL || !*stack)
+	if (*stack == NULL)
+		status = -1;
+	else if ((*stack)->next == NULL)
+		status = -1;
+	if (status == -1)
 	{
 		n = line_number;
 		fprintf(stderr, "L%d: can't add, stack too short\n", n);
@@ -31,7 +35,7 @@ void add(stack_t **stack, unsigned int line_number)
 /**
  * nop - does nothing
  * @stack: topmost element of the stack
- * @line_number
+ * @line_number: line having the opcode
  * Return: nothing
  */
 void nop(stack_t **stack, unsigned int line_number)
@@ -39,4 +43,36 @@ void nop(stack_t **stack, unsigned int line_number)
 	(void)stack;
 	(void)line_number;
 	/* Do nothing */
+}
+
+/**
+ * sub - subtract the topmost element data from the second-top data
+ * @stack: pointer to topmost element of the stack
+ * @line_number: line containing opcode
+ * Return: nothing
+ */
+void sub(stack_t **stack, unsigned int line_number)
+{
+	stack_t *top = *stack;
+	stack_t *sec_top;
+	int n, status;
+
+	if (*stack == NULL)
+		status = -1;
+	else if ((*stack)->next == NULL)
+		status = -1;
+
+	if (status == -1)
+	{
+		n = line_number;
+		fprintf(stderr, "L%d: can't sub, stack too short\n", n);
+		fclose(stream.o);
+		freeStack(*stack);
+		exit(EXIT_FAILURE);
+	}
+
+	sec_top = top->next;
+	sec_top->n = sec_top->n - top->n;
+	*stack = sec_top;
+	free(top);
 }
