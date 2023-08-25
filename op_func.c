@@ -77,6 +77,8 @@ void pall(stack_t **stack, unsigned int line_number)
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
+	int n;
+
 	if (*stack == NULL)
 	{
 		n = line_number;
@@ -129,7 +131,8 @@ void swap(stack_t **stack, unsigned int line_number)
 		status = -1;
 	if (status == -1)
 	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		n = line_number;
+		fprintf(stderr, "L%d: can't swap, stack too short\n", n);
 		fclose(stream.o);
 		freeStack(*stack);
 		exit(EXIT_FAILURE);
