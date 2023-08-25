@@ -9,33 +9,33 @@
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
-	int n, status = 0;
+	int n, status = 0, ln = line_number;
 
 	if (stream.data == NULL)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		status = 1;
+		status = -1;
 	}
-
-	n = atoi(stream.data);
-	if (strcmp(stream.data, "0") != 0 && n == 0)
+	else
 	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		status = 1;
+		n = atoi(stream.data);
+		if (strcmp(stream.data, "0") != 0 && n == 0)
+		{
+			fprintf(stderr, "L%d: usage: push integer\n", ln);
+			status = -1;
+		}
 	}
-
 	new_node = malloc(sizeof(stack_t));
 	if (!new_node)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		status = 1;
+		status = -1;
 	}
-	if (status == 1)
+	if (status == -1)
 	{
 		fclose(stream.o);
 		freeStack(*stack);
-		if (new_node)
-			free(new_node);
+		free(new_node);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = n;

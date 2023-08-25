@@ -25,7 +25,7 @@ int main(int ac, char **av)
 	o = fopen(av[1], "r");
 	if (!o)
 	{
-		fprintf(stderr, "Error: Can't open file <%s>\n", av[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
 	stream.o = o;
@@ -39,6 +39,8 @@ int main(int ac, char **av)
 
 		if (op_name)
 		{
+			if (op_name[0] == '#')
+				continue;
 			stream.data = op_data;
 			execute_op(op_name, &stack, line_number);
 		}
