@@ -61,11 +61,10 @@ void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
-void freeStack(stack_t *stack);
+void sub(stack_t **stack, unsigned int line_number);
+/* changed the name, because there's a standard div function */
+/* void divid(stack_t **stack, unsigned int line_number); */
 void nop(stack_t **stack, unsigned int line_number);
+void freeStack(stack_t *stack);
 void execute_op(char *op_name, stack_t **stack, unsigned int line_number);
-void error_handling(stack_t *stack, char *op_name, char *op_data,
-		unsigned int line_number, FILE *o);
-void error_handling2(stack_t *stack, char *op_name,
-		unsigned int line_number, FILE *o);
 #endif /** MONTY_H **/
