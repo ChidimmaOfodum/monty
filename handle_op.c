@@ -22,7 +22,7 @@ void execute_op(char *op_name, stack_t **stack, unsigned int line_number)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
-/*		{"div", divid},*/
+		{"div", divid},
 		{NULL, NULL}
 	};
 

@@ -55,7 +55,7 @@ void sub(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top = *stack;
 	stack_t *sec_top;
-	int n, status;
+	int n, status = 0;
 
 	if (*stack == NULL)
 		status = -1;
@@ -73,6 +73,45 @@ void sub(stack_t **stack, unsigned int line_number)
 
 	sec_top = top->next;
 	sec_top->n = sec_top->n - top->n;
+	*stack = sec_top;
+	free(top);
+}
+
+/**
+ * divid - divides the second-top data by the top data in the stack
+ * @stack: pointer to the topmost element of the stack
+ * @line_number: line containing opcode
+ * Return: nothing
+ */
+void divid(stack_t **stack, unsigned int line_number)
+{
+	stack_t *top = *stack;
+	stack_t *sec_top;
+	int n, status = 0;
+
+	if (*stack == NULL)
+		status = -1;
+	else if ((*stack)->next == NULL)
+		status = -1;
+
+	if (status == -1)
+	{
+		n = line_number;
+		fprintf(stderr, "L%d: can't div, stack too short\n", n);
+		fclose(stream.o);
+		freeStack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	if (top->n == 0)
+	{
+		n = line_number;
+		fprintf(stderr, "L%d: division by zero\n", n);
+		fclose(stream.o);
+		freeStack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	sec_top = top->next;
+	sec_top->n = sec_top->n / top->n;
 	*stack = sec_top;
 	free(top);
 }
