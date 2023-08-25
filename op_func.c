@@ -19,7 +19,7 @@ void push(stack_t **stack, unsigned int line_number)
 	else
 	{
 		n = atoi(stream.data);
-		if (strcmp(stream.data, "0") != 0 && n == 0)
+		if (isInteger(stream.data) != 0)
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", ln);
 			status = -1;
