@@ -79,13 +79,13 @@ void pint(stack_t **stack, unsigned int line_number)
 {
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty", line_number);
+		n = line_number;
+		fprintf(stderr, "L%d: can't pint, stack empty", n);
 		fclose(stream.o);
 		freeStack(*stack);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
-
 }
 
 /**
@@ -121,9 +121,13 @@ void pop(stack_t **stack, unsigned int line_number)
 void swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top, *sec_top;
-	int tmp;
+	int tmp, n, status = 0;
 
-	if ((*stack)->next == NULL || !*stack) /* Not up to two element */
+	if (*stack == NULL)
+		status = -1;
+	else if ((*stack)->next == NULL)
+		status = -1;
+	if (status == -1)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
 		fclose(stream.o);
