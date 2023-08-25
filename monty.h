@@ -66,5 +66,6 @@ void sub(stack_t **stack, unsigned int line_number);
 void divid(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 void freeStack(stack_t *stack);
+int isInteger(char *data);
 void execute_op(char *op_name, stack_t **stack, unsigned int line_number);
 #endif /** MONTY_H **/
