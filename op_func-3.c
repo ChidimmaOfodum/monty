@@ -4,6 +4,7 @@
  * mod - computes the remainder of the second-top's element data by
  * the top's data
  * @stack: pointer to the topmost element
+ * @line_number: line containing opcode
  * Return: nothing
  */
 void mod(stack_t **stack, unsigned int line_number)
@@ -106,7 +107,7 @@ void rotl(stack_t **stack, unsigned int line_number)
 	top = bottom = *stack;
 	sec_top = top->next;
 
-	if (*stack == NULL)
+	if (!*stack || (*stack)->next == NULL)
 		;
 	else
 	{
@@ -144,7 +145,7 @@ void rotr(stack_t **stack, unsigned int line_number)
 	(void)line_number;
 	top = bottom = *stack;
 
-	if (!*stack)
+	if (!*stack || (*stack)->next == NULL)
 		;
 	else
 	{
@@ -156,6 +157,10 @@ void rotr(stack_t **stack, unsigned int line_number)
 
 		top->prev = bottom;
 		bottom->next = top;
+
 		sec_bottom->next = NULL;
+		bottom->prev = NULL;
+
+		*stack = bottom;
 	}
 }
