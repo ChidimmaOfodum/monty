@@ -6,9 +6,7 @@
  * @stack: pointer to topmost stack element
  * @line_number: file line number
  * Return: void
- *
  */
-
 void execute_op(char *op_name, stack_t **stack, unsigned int line_number)
 {
 	int i = 0;
@@ -23,6 +21,11 @@ void execute_op(char *op_name, stack_t **stack, unsigned int line_number)
 		{"nop", nop},
 		{"sub", sub},
 		{"div", divid},
+		{"mul", mul},
+		{"mod", mod},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{"rotl", rotl},
 		{NULL, NULL}
 	};
 
