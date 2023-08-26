@@ -141,6 +141,7 @@ void rotr(stack_t **stack, unsigned int line_number)
 	stack_t *sec_bottom;
 	stack_t *bottom;
 
+	(void)line_number;
 	top = bottom = *stack;
 
 	if (!*stack)
