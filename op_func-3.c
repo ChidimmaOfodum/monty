@@ -105,12 +105,12 @@ void rotl(stack_t **stack, unsigned int line_number)
 
 	(void)line_number; /* Unused! */
 	top = bottom = *stack;
-	sec_top = top->next;
 
 	if (!*stack || (*stack)->next == NULL)
 		;
 	else
 	{
+		sec_top = top->next;
 	/* traversing until last element is reached */
 		while (bottom->next != NULL)
 		{
