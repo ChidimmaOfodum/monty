@@ -55,6 +55,15 @@ typedef struct glob
 
 extern glob stream;
 
+/* Stack Format: LIFO (Last In, First Out!)*/
+void execute_Stack_op(char *op_name, stack_t **stack, unsigned int line_number);
+void push(stack_t **stack, unsigned int line_number);
+
+/* Queue Format: FIFO (First In, First Out!)*/
+void execute_Queue_op(char *op_name, stack_t **stack, unsigned int line_number);
+void qPush(stack_t **stack, unsigned int line_number);
+
+/* Other opcode functions */
 void pall(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
@@ -71,7 +80,12 @@ void pstr(stack_t **stack, unsigned int line_number);
 void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
+
+/* call other execute function to match a format */
+int execute_op_format(char *op_name, stack_t **stack, unsigned int line_number);
+
+/* Other helpful functions */
 void freeStack(stack_t *stack);
 int isInteger(char *data);
-void execute_op(char *op_name, stack_t **stack, unsigned int line_number);
+
 #endif /** MONTY_H **/

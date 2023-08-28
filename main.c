@@ -21,7 +21,6 @@ int main(int ac, char **av)
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-
 	o = fopen(av[1], "r");
 	if (!o)
 	{
@@ -29,23 +28,20 @@ int main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	stream.o = o;
-
 	while (fgets(lineptr, SIZE, o) != NULL)
 	{
 		line_number++;
-
 		op_name = strtok(lineptr, delim);
 		op_data = strtok(NULL, delim);
-
 		if (op_name)
 		{
 			if (op_name[0] == '#')
 				continue;
 			stream.data = op_data;
-			execute_op(op_name, &stack, line_number);
+			/* executes opcodes according to a format (LIFO or FIFO)*/
+			execute_op_format(op_name, &stack, line_number);
 		}
 	}
-
 	fclose(o);
 	freeStack(stack);
 
