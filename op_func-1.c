@@ -123,15 +123,10 @@ void pop(stack_t **stack, unsigned int line_number)
 void swap(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top, *sec_top;
-	int tmp, n, status = 0;
+	int tmp, n = line_number;
 
-	if (*stack == NULL)
-		status = -1;
-	else if ((*stack)->next == NULL)
-		status = -1;
-	if (status == -1)
+	if (!*stack || (*stack)->next == NULL)
 	{
-		n = line_number;
 		fprintf(stderr, "L%d: can't swap, stack too short\n", n);
 		fclose(stream.o);
 		freeStack(*stack);

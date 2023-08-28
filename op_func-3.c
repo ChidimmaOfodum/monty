@@ -11,14 +11,9 @@ void mod(stack_t **stack, unsigned int line_number)
 {
 	stack_t *top = *stack;
 	stack_t *sec_top;
-	int n = line_number, status = 0;
+	int n = line_number;
 
-	if (*stack == NULL)
-		status = -1;
-	else if ((*stack)->next == NULL)
-		status = -1;
-
-	if (status == -1)
+	if (!*stack || (*stack)->next == NULL)
 	{
 		fprintf(stderr, "L%d: can't mod, stack too short\n", n);
 		fclose(stream.o);
